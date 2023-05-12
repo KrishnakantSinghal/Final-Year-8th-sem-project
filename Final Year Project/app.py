@@ -7,14 +7,21 @@ model = pickle.load(open('model_customer_subscription', 'rb'))
 
 @app.route('/')
 def home():
+    return render_template('home.html')
+
+@app.route('/predict_page')
+def predict_page():
     return render_template('index.html')
+
+@app.route('/about_page')
+def about_page():
+    return render_template('about.html')
 
 @app.route('/predict',methods=['POST'])
 def predict():
     '''
     For rendering results on HTML GUI
     '''
-    import pdb;pdb.set_trace()
     int_features = [int(x) for x in request.form.values()]
     final_features = [np.array(int_features)]
     prediction = model.predict(final_features)
